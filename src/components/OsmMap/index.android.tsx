@@ -2,6 +2,13 @@ import { Camera, Map, type PressEvent } from '@maplibre/maplibre-react-native';
 import type { FC } from 'react';
 import type { NativeSyntheticEvent } from 'react-native';
 
+import {
+    INITIAL_LATITUDE,
+    INITIAL_LONGITUDE,
+    INITIAL_ZOOM,
+    OSM_TILE_SIZE,
+    OSM_TILE_URL,
+} from '../../constants';
 import { createLocation } from '../../utils/createLocation';
 import { styles } from './styles';
 import type { OsmMapProps } from './types';
@@ -22,13 +29,13 @@ const OsmMap: FC<OsmMapProps> = ({ onLongPress }) => {
                 sources: {
                     osm: {
                         type: 'raster',
-                        tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
-                        tileSize: 256,
+                        tiles: [OSM_TILE_URL],
+                        tileSize: OSM_TILE_SIZE,
                     },
                 },
                 layers: [{ id: 'osm', type: 'raster', source: 'osm' }],
             }}>
-            <Camera center={[28.9784, 41.0082]} zoom={11} />
+            <Camera center={[INITIAL_LONGITUDE, INITIAL_LATITUDE]} zoom={INITIAL_ZOOM} />
         </Map>
     );
 };

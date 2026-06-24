@@ -1,25 +1,26 @@
 import { StyleSheet } from 'react-native';
 
+import { colors } from '../../theme/colors';
+import { typography } from '../../theme/typography';
+
 export const styles = StyleSheet.create({
     container: {
         zIndex: 10,
     },
     button: {
-        backgroundColor: '#fff',
+        backgroundColor: colors.surface,
         paddingVertical: 12,
         paddingHorizontal: 16,
         borderRadius: 8,
         elevation: 3,
     },
-    buttonText: {
-        fontSize: 16,
-    },
+    buttonText: typography.body,
     list: {
         position: 'absolute',
         top: 52,
         left: 0,
         right: 0,
-        backgroundColor: '#fff',
+        backgroundColor: colors.surface,
         borderRadius: 8,
         elevation: 5,
         zIndex: 10,
@@ -28,9 +29,7 @@ export const styles = StyleSheet.create({
         paddingVertical: 12,
         paddingHorizontal: 16,
         borderBottomWidth: 1,
-        borderBottomColor: '#eee',
+        borderBottomColor: colors.border,
     },
-    itemText: {
-        fontSize: 16,
-    },
+    itemText: typography.body,
 });

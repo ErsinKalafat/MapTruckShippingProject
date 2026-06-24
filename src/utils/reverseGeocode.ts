@@ -1,3 +1,4 @@
+import { APP_USER_AGENT, NOMINATIM_REVERSE_URL } from '../constants';
 import type { NominatimResponse } from './types/nominatim';
 
 // Koordinatı OpenStreetMap Nominatim ile ters geocode eder.
@@ -6,11 +7,11 @@ export async function reverseGeocode(
     latitude: number,
     longitude: number,
 ): Promise<string> {
-    const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&addressdetails=1&accept-language=tr`;
+    const url = `${NOMINATIM_REVERSE_URL}?lat=${latitude}&lon=${longitude}&format=json&addressdetails=1&accept-language=tr`;
 
     try {
         const response = await fetch(url, {
-            headers: { 'User-Agent': 'MapTruckShippingProject' },
+            headers: { 'User-Agent': APP_USER_AGENT },
         });
         const data = (await response.json()) as NominatimResponse;
         const address = data.address ?? {};

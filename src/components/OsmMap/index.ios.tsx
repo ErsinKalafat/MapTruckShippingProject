@@ -1,6 +1,13 @@
 import type { FC } from 'react';
 import MapView, { UrlTile, type LongPressEvent } from 'react-native-maps';
 
+import {
+    INITIAL_LATITUDE,
+    INITIAL_LATITUDE_DELTA,
+    INITIAL_LONGITUDE,
+    INITIAL_LONGITUDE_DELTA,
+    OSM_TILE_URL,
+} from '../../constants';
 import { createLocation } from '../../utils/createLocation';
 import { styles } from './styles';
 import type { OsmMapProps } from './types';
@@ -18,12 +25,12 @@ const OsmMap: FC<OsmMapProps> = ({ onLongPress }) => {
             mapType="none"
             onLongPress={handleLongPress}
             initialRegion={{
-                latitude: 41.0082,
-                longitude: 28.9784,
-                latitudeDelta: 0.1,
-                longitudeDelta: 0.1,
+                latitude: INITIAL_LATITUDE,
+                longitude: INITIAL_LONGITUDE,
+                latitudeDelta: INITIAL_LATITUDE_DELTA,
+                longitudeDelta: INITIAL_LONGITUDE_DELTA,
             }}>
-            <UrlTile urlTemplate="https://tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            <UrlTile urlTemplate={OSM_TILE_URL} />
         </MapView>
     );
 };
