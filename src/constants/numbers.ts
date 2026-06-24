@@ -15,3 +15,6 @@ export const MAP_FIT_PADDING = 80;
 
 // Kilometre başına tahmini taşıma ücreti (TL).
 export const PRICE_PER_KM = 25;
+
+// Açılış bildiriminin ekranda kalma süresi (ms).
+export const HINT_DURATION_MS = 10000;

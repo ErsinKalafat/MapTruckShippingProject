@@ -2,12 +2,14 @@ import { useEffect, useRef } from 'react';
 import { View } from 'react-native';
 
 import {
+    HintBanner,
     JourneyInfo,
     MapControls,
     OsmMap,
     RoutePlanner,
     type OsmMapHandle,
 } from '@components';
+import { MAP_HINT } from '@constants';
 import { useRoute } from '@hooks';
 import { styles } from './styles';
 
@@ -54,6 +56,7 @@ function MapPage() {
                 durationSeconds={durationSeconds}
                 distanceMeters={distanceMeters}
             />
+            <HintBanner message={MAP_HINT} />
         </View>
     );
 }
