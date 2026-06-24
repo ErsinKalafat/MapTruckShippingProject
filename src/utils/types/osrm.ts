@@ -5,6 +5,8 @@ export type OsrmRoute = {
     geometry: {
         coordinates: RoutePoint[];
     };
+    // Gerçek yol üzerinden tahmini sürüş süresi (saniye).
+    duration: number;
 };
 
 export type OsrmResponse = {

@@ -12,7 +12,7 @@ import { useRoute } from './src/hooks/useRoute';
 // Harita platforma göre seçilir (iOS: react-native-maps, Android: MapLibre).
 // Haritaya basılı tutarak (selectByMap) veya dropdown ile başlangıç/varış seçilir.
 function App() {
-  const { origin, destination, route, setOrigin, setDestination, selectByMap, reset } =
+  const { origin, destination, route, durationSeconds, setOrigin, setDestination, selectByMap, reset } =
     useRoute();
   const mapRef = useRef<OsmMapHandle>(null);
 
@@ -31,7 +31,11 @@ function App() {
           onZoomOut={() => mapRef.current?.zoomOut()}
           onClear={reset}
         />
-        <JourneyInfo origin={origin} destination={destination} />
+        <JourneyInfo
+          origin={origin}
+          destination={destination}
+          durationSeconds={durationSeconds}
+        />
       </View>
     </SafeAreaProvider>
   );

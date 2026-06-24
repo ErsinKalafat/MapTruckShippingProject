@@ -8,13 +8,18 @@ export function useRoute() {
     const [origin, setOrigin] = useState<Location | null>(null);
     const [destination, setDestination] = useState<Location | null>(null);
     const [route, setRoute] = useState<RoutePoint[]>([]);
+    const [durationSeconds, setDurationSeconds] = useState(0);
 
     // A ve B noktası belirlenince OSRM'den rotayı çek; eksikse rotayı temizle.
     useEffect(() => {
         if (origin && destination) {
-            fetchRoute(origin, destination).then(setRoute);
+            fetchRoute(origin, destination).then(result => {
+                setRoute(result.coordinates);
+                setDurationSeconds(result.durationSeconds);
+            });
         } else {
             setRoute([]);
+            setDurationSeconds(0);
         }
     }, [origin, destination]);
 
@@ -39,5 +44,14 @@ export function useRoute() {
         setDestination(null);
     };
 
-    return { origin, destination, route, setOrigin, setDestination, selectByMap, reset };
+    return {
+        origin,
+        destination,
+        route,
+        durationSeconds,
+        setOrigin,
+        setDestination,
+        selectByMap,
+        reset,
+    };
 }
