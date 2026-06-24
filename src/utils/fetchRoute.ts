@@ -19,8 +19,9 @@ export async function fetchRoute(
         return {
             coordinates: route?.geometry.coordinates ?? [],
             durationSeconds: route?.duration ?? 0,
+            distanceMeters: route?.distance ?? 0,
         };
     } catch {
-        return { coordinates: [], durationSeconds: 0 };
+        return { coordinates: [], durationSeconds: 0, distanceMeters: 0 };
     }
 }

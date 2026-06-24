@@ -5,4 +5,5 @@ export type RoutePoint = [number, number];
 export type RouteResult = {
     coordinates: RoutePoint[];
     durationSeconds: number;
+    distanceMeters: number;
 };

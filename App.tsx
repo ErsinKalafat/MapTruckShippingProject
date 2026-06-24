@@ -12,7 +12,7 @@ import { useRoute } from './src/hooks/useRoute';
 // Harita platforma göre seçilir (iOS: react-native-maps, Android: MapLibre).
 // Haritaya basılı tutarak (selectByMap) veya dropdown ile başlangıç/varış seçilir.
 function App() {
-  const { origin, destination, route, durationSeconds, setOrigin, setDestination, selectByMap, reset } =
+  const { origin, destination, route, durationSeconds, distanceMeters, setOrigin, setDestination, selectByMap, reset } =
     useRoute();
   const mapRef = useRef<OsmMapHandle>(null);
 
@@ -42,6 +42,7 @@ function App() {
           origin={origin}
           destination={destination}
           durationSeconds={durationSeconds}
+          distanceMeters={distanceMeters}
         />
       </View>
     </SafeAreaProvider>

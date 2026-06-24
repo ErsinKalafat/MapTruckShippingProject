@@ -7,6 +7,8 @@ export type OsrmRoute = {
     };
     // Gerçek yol üzerinden tahmini sürüş süresi (saniye).
     duration: number;
+    // Gerçek yol mesafesi (metre).
+    distance: number;
 };
 
 export type OsrmResponse = {

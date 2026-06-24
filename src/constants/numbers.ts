@@ -12,3 +12,6 @@ export const ROUTE_STROKE_WIDTH = 5;
 
 // Rotayı ekrana sığdırırken bırakılan kenar boşluğu (piksel).
 export const MAP_FIT_PADDING = 80;
+
+// Kilometre başına tahmini taşıma ücreti (TL).
+export const PRICE_PER_KM = 25;
