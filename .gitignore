@@ -99,3 +99,4 @@ google-services.json
 GoogleService-Info.plist
 secrets.json
 package-lock.json
+ios/Podfile.lock
