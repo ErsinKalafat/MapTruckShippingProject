@@ -1,15 +1,8 @@
-import { StyleSheet } from 'react-native';
-import MapView from 'react-native-maps';
+import OsmMap from './src/components/OsmMap';
 
-// mapType="none" -> Google/Apple harita karoları çizilmez, tuval boş kalır.
+// Harita platforma göre seçilir (iOS: react-native-maps, Android: MapLibre).
 function App() {
-  return <MapView style={styles.map} mapType="none" />;
+  return <OsmMap />;
 }
-
-const styles = StyleSheet.create({
-  map: {
-    flex: 1,
-  },
-});
 
 export default App;

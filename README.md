@@ -1,5 +1,48 @@
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
+# Harita Mimarisi
+
+Bu proje, harita ekranını **hiçbir API anahtarı olmadan** çalışacak şekilde tasarlandı. Amaç, projeyi GitHub'da herkese açık paylaşırken depoya gizli anahtar koymak zorunda kalmamak. Aşağıdaki kararlar bu hedefe göre alındı.
+
+### Neden OpenStreetMap?
+
+Harita karoları (tiles) [OpenStreetMap](https://www.openstreetmap.org)'ten çekiliyor:
+
+```
+https://tile.openstreetmap.org/{z}/{x}/{y}.png
+```
+
+OpenStreetMap karoları ücretsiz ve anahtarsız erişilebilir. Böylece Google Maps veya Mapbox gibi servislerin gerektirdiği faturalandırma hesabına ve gizli API anahtarına ihtiyaç kalmıyor — depoda saklanması gereken bir sır yok.
+
+### Neden `mapType="none"` (iOS)?
+
+iOS tarafında `react-native-maps` kullanılıyor ve `mapType="none"` veriliyor. Bu, haritanın **kendi varsayılan karolarını çizmesini kapatır**. Yani Apple'ın temel haritası çizilmez; tuval boş kalır ve üzerine yalnızca bizim eklediğimiz OpenStreetMap karoları (`UrlTile`) döşenir. Sonuç: tamamen OSM tabanlı, tek kaynaklı temiz bir harita.
+
+### Neden iOS'ta `react-native-maps` kullanabiliyoruz?
+
+iOS'ta `react-native-maps` altyapı olarak **Apple MapKit** kullanır. Apple MapKit, uygulama imzasıyla (provisioning) çalıştığı için ayrı bir harita API anahtarı **gerektirmez**. Bu yüzden iOS'ta anahtar olmadan harita motorunu başlatıp üzerine OSM karolarını döşeyebiliyoruz.
+
+### Neden Android'de `react-native-maps` yerine `@maplibre/maplibre-react-native`?
+
+Android'de `react-native-maps`, altyapı olarak **Google Maps SDK** kullanır. Google Maps SDK, sadece OSM karolarını göstersek bile harita motorunu başlatmak için **geçerli bir Google API anahtarı zorunlu kılar**; anahtar geçersizse motor hiç çizim yapmaz ve OSM karoları da görünmez (logcat'te `Authorization failure` hatası alınır).
+
+Anahtarsız kalmak istediğimiz için Android'de [`@maplibre/maplibre-react-native`](https://github.com/maplibre/maplibre-react-native)'e geçtik. MapLibre tamamen açık kaynaklı bir harita motorudur, Google'a bağlı değildir ve **hiçbir API anahtarı gerektirmez**. OSM karolarını doğrudan bir raster stil tanımıyla döşüyoruz.
+
+### Platforma göre ayrım
+
+İki kütüphane, autolinking düzeyinde platforma göre ayrıldı (`react-native.config.js`): iOS yalnızca `react-native-maps`, Android yalnızca `@maplibre/maplibre-react-native` derler. Bileşen tarafında Metro, platform uzantısına göre doğru dosyayı otomatik seçer:
+
+```
+src/components/OsmMap/
+├── index.ios.tsx       # react-native-maps + OSM (Apple MapKit, anahtarsız)
+├── index.android.tsx   # MapLibre + OSM (Google yok, anahtarsız)
+├── index.d.ts          # ortak tip bildirimi
+├── types.ts
+└── styles.ts
+```
+
+Her iki platformda da sonuç aynıdır: boş tuval üzerinde yalnızca OpenStreetMap karoları, sıfır API anahtarı.
+
 # Getting Started
 
 > **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
