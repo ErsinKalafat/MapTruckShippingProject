@@ -1,2 +1,6 @@
-// OsmMap bileşeni prop almaz; her platformda boş OpenStreetMap haritası gösterir.
-export type OsmMapProps = Record<string, never>;
+import type { Location } from '../../types/location';
+
+export type OsmMapProps = {
+    // Haritaya basılı tutulunca seçilen konumu bildirir.
+    onLongPress: (location: Location) => void;
+};
