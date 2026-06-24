@@ -1,19 +1,18 @@
 import { Text, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { USER_NAME } from '../../constants';
+import { withSafeAreaPanel } from '../../hocs/withSafeAreaPanel';
 import { estimateDuration } from '../../utils/estimateDuration';
-import { containerStyle, styles } from './styles';
+import { styles } from './styles';
 import type { JourneyInfoProps } from './types';
 
 // Haritanın üstünde, alt kısımda absolute duran yolculuk bilgisi alanı.
 function JourneyInfo({ origin, destination }: JourneyInfoProps) {
-    const insets = useSafeAreaInsets();
     const duration =
         origin && destination ? estimateDuration(origin, destination) : '-';
 
     return (
-        <View style={containerStyle(insets.bottom)}>
+        <View style={styles.card}>
             <Text style={styles.greeting}>Merhaba, {USER_NAME}</Text>
             <Text style={styles.row}>Kalkış: {origin?.name ?? '-'}</Text>
             <Text style={styles.row}>Varış: {destination?.name ?? '-'}</Text>
@@ -22,4 +21,5 @@ function JourneyInfo({ origin, destination }: JourneyInfoProps) {
     );
 }
 
-export default JourneyInfo;
+// Alt güvenli alana yaslanan panel olarak dışa aktarılır.
+export default withSafeAreaPanel(JourneyInfo, 'bottom');
