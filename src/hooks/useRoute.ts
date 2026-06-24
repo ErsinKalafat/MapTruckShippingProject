@@ -1,10 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import type { Location } from '../types/location';
+import type { RoutePoint } from '../types/route';
+import { fetchRoute } from '../utils/fetchRoute';
 
 export function useRoute() {
     const [origin, setOrigin] = useState<Location | null>(null);
     const [destination, setDestination] = useState<Location | null>(null);
+    const [route, setRoute] = useState<RoutePoint[]>([]);
+
+    // A ve B noktası belirlenince OSRM'den rotayı çek; eksikse rotayı temizle.
+    useEffect(() => {
+        if (origin && destination) {
+            fetchRoute(origin, destination).then(setRoute);
+        } else {
+            setRoute([]);
+        }
+    }, [origin, destination]);
 
     // Haritaya basılı tutarak seçim mantığı:
     // - origin boşsa -> seçilen yer origin olur.
@@ -27,5 +39,5 @@ export function useRoute() {
         setDestination(null);
     };
 
-    return { origin, destination, setOrigin, setDestination, selectByMap, reset };
+    return { origin, destination, route, setOrigin, setDestination, selectByMap, reset };
 }

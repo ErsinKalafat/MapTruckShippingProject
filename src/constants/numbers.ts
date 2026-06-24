@@ -10,3 +10,6 @@ export const INITIAL_LONGITUDE_DELTA = 0.1;
 // Tahmini süre hesabı için sabitler.
 export const AVERAGE_SPEED_KMH = 70;
 export const EARTH_RADIUS_KM = 6371;
+
+// Rota çizgisinin kalınlığı.
+export const ROUTE_STROKE_WIDTH = 5;

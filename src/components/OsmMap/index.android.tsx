@@ -1,5 +1,7 @@
 import {
     Camera,
+    GeoJSONSource,
+    Layer,
     Map,
     type CameraRef,
     type MapRef,
@@ -14,13 +16,15 @@ import {
     INITIAL_ZOOM,
     OSM_TILE_SIZE,
     OSM_TILE_URL,
+    ROUTE_STROKE_WIDTH,
 } from '../../constants';
+import { colors } from '../../theme/colors';
 import { createLocation } from '../../utils/createLocation';
 import { styles } from './styles';
 import type { OsmMapHandle, OsmMapProps } from './types';
 
 // Android: boş tuval + sadece OpenStreetMap karoları. Google yok, API key gerekmez.
-const OsmMap = forwardRef<OsmMapHandle, OsmMapProps>(({ onLongPress }, ref) => {
+const OsmMap = forwardRef<OsmMapHandle, OsmMapProps>(({ onLongPress, route }, ref) => {
     const mapRef = useRef<MapRef>(null);
     const cameraRef = useRef<CameraRef>(null);
 
@@ -63,6 +67,25 @@ const OsmMap = forwardRef<OsmMapHandle, OsmMapProps>(({ onLongPress }, ref) => {
                 center={[INITIAL_LONGITUDE, INITIAL_LATITUDE]}
                 zoom={INITIAL_ZOOM}
             />
+            {route.length > 0 && (
+                <GeoJSONSource
+                    id="route"
+                    data={{
+                        type: 'Feature',
+                        properties: {},
+                        geometry: { type: 'LineString', coordinates: route },
+                    }}>
+                    <Layer
+                        id="route-line"
+                        type="line"
+                        source="route"
+                        paint={{
+                            'line-color': colors.route,
+                            'line-width': ROUTE_STROKE_WIDTH,
+                        }}
+                    />
+                </GeoJSONSource>
+            )}
         </Map>
     );
 });

@@ -1,5 +1,5 @@
 import { forwardRef, useImperativeHandle, useRef } from 'react';
-import MapView, { UrlTile, type LongPressEvent } from 'react-native-maps';
+import MapView, { Polyline, UrlTile, type LongPressEvent } from 'react-native-maps';
 
 import {
     INITIAL_LATITUDE,
@@ -7,13 +7,15 @@ import {
     INITIAL_LONGITUDE,
     INITIAL_LONGITUDE_DELTA,
     OSM_TILE_URL,
+    ROUTE_STROKE_WIDTH,
 } from '../../constants';
+import { colors } from '../../theme/colors';
 import { createLocation } from '../../utils/createLocation';
 import { styles } from './styles';
 import type { OsmMapHandle, OsmMapProps } from './types';
 
 // iOS: mapType="none" -> Apple karoları çizilmez, sadece OpenStreetMap döşenir.
-const OsmMap = forwardRef<OsmMapHandle, OsmMapProps>(({ onLongPress }, ref) => {
+const OsmMap = forwardRef<OsmMapHandle, OsmMapProps>(({ onLongPress, route }, ref) => {
     const mapRef = useRef<MapView>(null);
 
     // Apple Maps "zoom" yerine "altitude" (kamera yüksekliği) kullanır.
@@ -49,6 +51,16 @@ const OsmMap = forwardRef<OsmMapHandle, OsmMapProps>(({ onLongPress }, ref) => {
                 longitudeDelta: INITIAL_LONGITUDE_DELTA,
             }}>
             <UrlTile urlTemplate={OSM_TILE_URL} />
+            {route.length > 0 && (
+                <Polyline
+                    coordinates={route.map(([longitude, latitude]) => ({
+                        latitude,
+                        longitude,
+                    }))}
+                    strokeColor={colors.route}
+                    strokeWidth={ROUTE_STROKE_WIDTH}
+                />
+            )}
         </MapView>
     );
 });
