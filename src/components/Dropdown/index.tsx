@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import type { Location } from '../../types/location';
+import type { Location } from '@app-types';
 import { styles } from './styles';
 import type { DropdownProps } from './types';
 

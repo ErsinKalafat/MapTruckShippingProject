@@ -1,9 +1,8 @@
 import { Text, View } from 'react-native';
 
-import { CURRENCY, USER_NAME } from '../../constants';
-import { withSafeAreaPanel } from '../../hocs/withSafeAreaPanel';
-import { estimateCost } from '../../utils/estimateCost';
-import { formatDuration } from '../../utils/formatDuration';
+import { CURRENCY, USER_NAME } from '@constants';
+import { withSafeAreaPanel } from '@hocs';
+import { estimateCost, formatDuration } from '@utils';
 import { styles } from './styles';
 import type { JourneyInfoProps } from './types';
 

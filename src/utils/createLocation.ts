@@ -1,4 +1,4 @@
-import type { Location } from '../types/location';
+import type { Location } from '@app-types';
 import { reverseGeocode } from './reverseGeocode';
 
 // Haritadan seçilen koordinatı, en yakın ilçe/il adıyla birlikte Location'a çevirir.

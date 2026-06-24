@@ -1,4 +1,4 @@
-import type { RoutePoint } from '../../types/route';
+import type { RoutePoint } from '@app-types';
 
 // OSRM public API'sinin geometries=geojson yanıtının ilgili kısmı.
 export type OsrmRoute = {

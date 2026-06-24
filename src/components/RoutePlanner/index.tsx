@@ -1,8 +1,8 @@
 import { View } from 'react-native';
 
-import { locations } from '../../data/locations';
-import { withSafeAreaPanel } from '../../hocs/withSafeAreaPanel';
-import Dropdown from '../Dropdown';
+import Dropdown from '@components/Dropdown';
+import { locations } from '@data';
+import { withSafeAreaPanel } from '@hocs';
 import { styles } from './styles';
 import type { RoutePlannerProps } from './types';
 

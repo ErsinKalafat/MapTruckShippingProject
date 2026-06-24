@@ -1,4 +1,4 @@
-import { APP_USER_AGENT, NOMINATIM_REVERSE_URL } from '../constants';
+import { APP_USER_AGENT, NOMINATIM_REVERSE_URL } from '@constants';
 import type { NominatimResponse } from './types/nominatim';
 
 // Koordinatı OpenStreetMap Nominatim ile ters geocode eder.

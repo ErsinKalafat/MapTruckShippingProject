@@ -9,9 +9,9 @@ import {
     MAP_FIT_PADDING,
     OSM_TILE_URL,
     ROUTE_STROKE_WIDTH,
-} from '../../constants';
-import { colors } from '../../theme/colors';
-import { createLocation } from '../../utils/createLocation';
+} from '@constants';
+import { colors } from '@theme';
+import { createLocation } from '@utils';
 import { styles } from './styles';
 import type { OsmMapHandle, OsmMapProps } from './types';
 

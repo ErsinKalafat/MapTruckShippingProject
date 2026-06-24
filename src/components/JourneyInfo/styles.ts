@@ -1,8 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { colors } from '../../theme/colors';
-import { shadows } from '../../theme/shadows';
-import { typography } from '../../theme/typography';
+import { colors, shadows, typography } from '@theme';
 
 export const styles = StyleSheet.create({
     // Yolculuk bilgisini taşıyan yüzen kart.

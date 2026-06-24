@@ -1,12 +1,14 @@
 import { useEffect, useRef } from 'react';
 import { View } from 'react-native';
 
-import JourneyInfo from '../../components/JourneyInfo';
-import MapControls from '../../components/MapControls';
-import OsmMap from '../../components/OsmMap';
-import type { OsmMapHandle } from '../../components/OsmMap/types';
-import RoutePlanner from '../../components/RoutePlanner';
-import { useRoute } from '../../hooks/useRoute';
+import {
+    JourneyInfo,
+    MapControls,
+    OsmMap,
+    RoutePlanner,
+    type OsmMapHandle,
+} from '@components';
+import { useRoute } from '@hooks';
 import { styles } from './styles';
 
 // Harita platforma göre seçilir (iOS: react-native-maps, Android: MapLibre).

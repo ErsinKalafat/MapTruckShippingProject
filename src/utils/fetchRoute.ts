@@ -1,6 +1,5 @@
-import { OSRM_ROUTE_URL } from '../constants';
-import type { Location } from '../types/location';
-import type { RouteResult } from '../types/route';
+import { OSRM_ROUTE_URL } from '@constants';
+import type { Location, RouteResult } from '@app-types';
 import type { OsrmResponse } from './types/osrm';
 
 // OSRM public API'sinden A->B sürüş rotasını (noktalar + süre) çeker.

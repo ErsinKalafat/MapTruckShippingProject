@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import type { Location } from '../types/location';
-import type { RoutePoint } from '../types/route';
-import { fetchRoute } from '../utils/fetchRoute';
+import type { Location, RoutePoint } from '@app-types';
+import { fetchRoute } from '@utils';
 
 export function useRoute() {
     const [origin, setOrigin] = useState<Location | null>(null);

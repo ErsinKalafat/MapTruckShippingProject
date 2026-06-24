@@ -1,5 +1,4 @@
-import type { Location } from '../../types/location';
-import type { RoutePoint } from '../../types/route';
+import type { Location, RoutePoint } from '@app-types';
 
 export type OsmMapProps = {
     // Haritaya basılı tutulunca seçilen konumu bildirir.

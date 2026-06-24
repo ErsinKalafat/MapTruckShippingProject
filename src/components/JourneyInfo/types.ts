@@ -1,4 +1,4 @@
-import type { Location } from '../../types/location';
+import type { Location } from '@app-types';
 
 export type JourneyInfoProps = {
     origin: Location | null;
