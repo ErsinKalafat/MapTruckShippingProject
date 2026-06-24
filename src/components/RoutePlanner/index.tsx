@@ -1,8 +1,9 @@
 import { View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { locations } from '../../data/locations';
 import Dropdown from '../Dropdown';
-import { styles } from './styles';
+import { containerStyle, styles } from './styles';
 import type { RoutePlannerProps } from './types';
 
 // Başlangıç metnine basınca altında dropdown açılır ve origin'i set eder.
@@ -13,8 +14,10 @@ function RoutePlanner({
     onSelectOrigin,
     onSelectDestination,
 }: RoutePlannerProps) {
+    const insets = useSafeAreaInsets();
+
     return (
-        <View style={styles.container}>
+        <View style={containerStyle(insets.top)}>
             <View style={styles.origin}>
                 <Dropdown
                     options={locations}

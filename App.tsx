@@ -1,5 +1,7 @@
 import { StyleSheet, View } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import JourneyInfo from './src/components/JourneyInfo';
 import OsmMap from './src/components/OsmMap';
 import RoutePlanner from './src/components/RoutePlanner';
 import { useRoute } from './src/hooks/useRoute';
@@ -10,15 +12,18 @@ function App() {
   const { origin, destination, setOrigin, setDestination, selectByMap } = useRoute();
 
   return (
-    <View style={styles.container}>
-      <OsmMap onLongPress={selectByMap} />
-      <RoutePlanner
-        origin={origin}
-        destination={destination}
-        onSelectOrigin={setOrigin}
-        onSelectDestination={setDestination}
-      />
-    </View>
+    <SafeAreaProvider>
+      <View style={styles.container}>
+        <OsmMap onLongPress={selectByMap} />
+        <RoutePlanner
+          origin={origin}
+          destination={destination}
+          onSelectOrigin={setOrigin}
+          onSelectDestination={setDestination}
+        />
+        <JourneyInfo origin={origin} destination={destination} />
+      </View>
+    </SafeAreaProvider>
   );
 }
 
