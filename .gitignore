@@ -73,3 +73,29 @@ yarn-error.log
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# Environment variables / secrets
+.env
+.env.*
+!.env.example
+*.local
+
+# Android signing (release keystores & credentials — keep debug.keystore tracked)
+*.jks
+keystore.properties
+**/android/app/release.keystore
+**/android/app/*-release.keystore
+
+# iOS signing / provisioning
+*.mobileprovision
+*.p12
+*.p8
+*.cer
+*.certSigningRequest
+
+# Misc credentials
+*.pem
+google-services.json
+GoogleService-Info.plist
+secrets.json
+package-lock.json
