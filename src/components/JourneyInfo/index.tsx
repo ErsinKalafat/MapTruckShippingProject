@@ -21,10 +21,26 @@ function JourneyInfo({
     return (
         <View style={styles.card}>
             <Text style={styles.greeting}>Merhaba, {USER_NAME}</Text>
-            <Text style={styles.row}>Kalkış: {origin?.name ?? '-'}</Text>
-            <Text style={styles.row}>Varış: {destination?.name ?? '-'}</Text>
-            <Text style={styles.row}>Tahmini süre: {duration}</Text>
-            <Text style={styles.row}>Tahmini maliyet: {cost}</Text>
+            <Text style={styles.subtitle}>Yolculuk özeti</Text>
+
+            <View style={styles.divider} />
+
+            <View style={styles.row}>
+                <Text style={styles.label}>Kalkış</Text>
+                <Text style={styles.value}>{origin?.name ?? '-'}</Text>
+            </View>
+            <View style={styles.row}>
+                <Text style={styles.label}>Varış</Text>
+                <Text style={styles.value}>{destination?.name ?? '-'}</Text>
+            </View>
+            <View style={styles.row}>
+                <Text style={styles.label}>Tahmini süre</Text>
+                <Text style={styles.value}>{duration}</Text>
+            </View>
+            <View style={styles.row}>
+                <Text style={styles.label}>Tahmini maliyet</Text>
+                <Text style={styles.cost}>{cost}</Text>
+            </View>
         </View>
     );
 }

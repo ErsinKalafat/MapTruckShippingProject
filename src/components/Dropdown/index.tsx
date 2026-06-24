@@ -15,8 +15,14 @@ function Dropdown({ options, placeholder, onSelect }: DropdownProps) {
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.button} onPress={() => setOpen(!open)}>
-                <Text style={styles.buttonText}>{placeholder}</Text>
+            <TouchableOpacity
+                style={styles.button}
+                activeOpacity={0.8}
+                onPress={() => setOpen(!open)}>
+                <Text style={styles.buttonText} numberOfLines={1}>
+                    {placeholder}
+                </Text>
+                <Text style={styles.chevron}>{open ? '▴' : '▾'}</Text>
             </TouchableOpacity>
 
             {open && (
