@@ -4,6 +4,16 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 > **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
 
+## Step 0: Install dependencies
+
+This project pins every dependency to an exact version, and the resolved tree is locked in `package-lock.json`. To install the **exact same versions** that the project was built with, use `npm ci` (clean install from the lockfile) instead of `npm install`:
+
+```sh
+npm ci
+```
+
+> Use `npm ci` for reproducible installs. Only use `npm install` when you intentionally want to add or update a dependency.
+
 ## Step 1: Start Metro
 
 First, you will need to run **Metro**, the JavaScript build tool for React Native.
