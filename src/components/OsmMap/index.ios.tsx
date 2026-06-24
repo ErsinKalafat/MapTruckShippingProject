@@ -6,6 +6,7 @@ import {
     INITIAL_LATITUDE_DELTA,
     INITIAL_LONGITUDE,
     INITIAL_LONGITUDE_DELTA,
+    MAP_FIT_PADDING,
     OSM_TILE_URL,
     ROUTE_STROKE_WIDTH,
 } from '../../constants';
@@ -31,6 +32,20 @@ const OsmMap = forwardRef<OsmMapHandle, OsmMapProps>(({ onLongPress, route }, re
     useImperativeHandle(ref, () => ({
         zoomIn: () => zoomBy(0.5),
         zoomOut: () => zoomBy(2),
+        fitToRoute: points => {
+            mapRef.current?.fitToCoordinates(
+                points.map(([longitude, latitude]) => ({ latitude, longitude })),
+                {
+                    edgePadding: {
+                        top: MAP_FIT_PADDING,
+                        right: MAP_FIT_PADDING,
+                        bottom: MAP_FIT_PADDING,
+                        left: MAP_FIT_PADDING,
+                    },
+                    animated: true,
+                },
+            );
+        },
     }));
 
     const handleLongPress = async (event: LongPressEvent) => {

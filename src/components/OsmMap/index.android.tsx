@@ -14,6 +14,7 @@ import {
     INITIAL_LATITUDE,
     INITIAL_LONGITUDE,
     INITIAL_ZOOM,
+    MAP_FIT_PADDING,
     OSM_TILE_SIZE,
     OSM_TILE_URL,
     ROUTE_STROKE_WIDTH,
@@ -39,6 +40,24 @@ const OsmMap = forwardRef<OsmMapHandle, OsmMapProps>(({ onLongPress, route }, re
     useImperativeHandle(ref, () => ({
         zoomIn: () => zoomBy(1),
         zoomOut: () => zoomBy(-1),
+        fitToRoute: points => {
+            if (points.length === 0) {
+                return;
+            }
+            const lngs = points.map(([longitude]) => longitude);
+            const lats = points.map(([, latitude]) => latitude);
+            cameraRef.current?.fitBounds(
+                [Math.min(...lngs), Math.min(...lats), Math.max(...lngs), Math.max(...lats)],
+                {
+                    padding: {
+                        top: MAP_FIT_PADDING,
+                        right: MAP_FIT_PADDING,
+                        bottom: MAP_FIT_PADDING,
+                        left: MAP_FIT_PADDING,
+                    },
+                },
+            );
+        },
     }));
 
     const handleLongPress = async (event: NativeSyntheticEvent<PressEvent>) => {

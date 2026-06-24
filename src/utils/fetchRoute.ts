@@ -10,7 +10,7 @@ export async function fetchRoute(
     destination: Location,
 ): Promise<RouteResult> {
     const coordinates = `${origin.longitude},${origin.latitude};${destination.longitude},${destination.latitude}`;
-    const url = `${OSRM_ROUTE_URL}/${coordinates}?geometries=geojson`;
+    const url = `${OSRM_ROUTE_URL}/${coordinates}?geometries=geojson&overview=full`;
 
     try {
         const response = await fetch(url);

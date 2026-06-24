@@ -12,4 +12,6 @@ export type OsmMapProps = {
 export type OsmMapHandle = {
     zoomIn: () => void;
     zoomOut: () => void;
+    // Verilen rotayı (tüm noktalar) ekrana sığdıracak şekilde uzaklaştırır.
+    fitToRoute: (points: RoutePoint[]) => void;
 };

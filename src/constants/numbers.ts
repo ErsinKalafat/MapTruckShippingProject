@@ -9,3 +9,6 @@ export const INITIAL_LONGITUDE_DELTA = 0.1;
 
 // Rota çizgisinin kalınlığı.
 export const ROUTE_STROKE_WIDTH = 5;
+
+// Rotayı ekrana sığdırırken bırakılan kenar boşluğu (piksel).
+export const MAP_FIT_PADDING = 80;

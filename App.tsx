@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -15,6 +15,13 @@ function App() {
   const { origin, destination, route, durationSeconds, setOrigin, setDestination, selectByMap, reset } =
     useRoute();
   const mapRef = useRef<OsmMapHandle>(null);
+
+  // Rota geldiğinde haritayı iki noktayı da görecek şekilde uzaklaştır.
+  useEffect(() => {
+    if (route.length > 0) {
+      mapRef.current?.fitToRoute(route);
+    }
+  }, [route]);
 
   return (
     <SafeAreaProvider>
