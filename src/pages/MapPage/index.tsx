@@ -1,0 +1,59 @@
+import { useEffect, useRef } from 'react';
+import { View } from 'react-native';
+
+import JourneyInfo from '../../components/JourneyInfo';
+import MapControls from '../../components/MapControls';
+import OsmMap from '../../components/OsmMap';
+import type { OsmMapHandle } from '../../components/OsmMap/types';
+import RoutePlanner from '../../components/RoutePlanner';
+import { useRoute } from '../../hooks/useRoute';
+import { styles } from './styles';
+
+// Harita platforma göre seçilir (iOS: react-native-maps, Android: MapLibre).
+// Haritaya basılı tutarak (selectByMap) veya dropdown ile başlangıç/varış seçilir.
+function MapPage() {
+    const {
+        origin,
+        destination,
+        route,
+        durationSeconds,
+        distanceMeters,
+        setOrigin,
+        setDestination,
+        selectByMap,
+        reset,
+    } = useRoute();
+    const mapRef = useRef<OsmMapHandle>(null);
+
+    // Rota geldiğinde haritayı iki noktayı da görecek şekilde uzaklaştır.
+    useEffect(() => {
+        if (route.length > 0) {
+            mapRef.current?.fitToRoute(route);
+        }
+    }, [route]);
+
+    return (
+        <View style={styles.container}>
+            <OsmMap ref={mapRef} route={route} onLongPress={selectByMap} />
+            <RoutePlanner
+                origin={origin}
+                destination={destination}
+                onSelectOrigin={setOrigin}
+                onSelectDestination={setDestination}
+            />
+            <MapControls
+                onZoomIn={() => mapRef.current?.zoomIn()}
+                onZoomOut={() => mapRef.current?.zoomOut()}
+                onClear={reset}
+            />
+            <JourneyInfo
+                origin={origin}
+                destination={destination}
+                durationSeconds={durationSeconds}
+                distanceMeters={distanceMeters}
+            />
+        </View>
+    );
+}
+
+export default MapPage;
