@@ -21,5 +21,11 @@ export function useRoute() {
         }
     };
 
-    return { origin, destination, setOrigin, setDestination, selectByMap };
+    // Başlangıç ve varışı temizler.
+    const reset = () => {
+        setOrigin(null);
+        setDestination(null);
+    };
+
+    return { origin, destination, setOrigin, setDestination, selectByMap, reset };
 }

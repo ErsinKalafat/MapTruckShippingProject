@@ -1,5 +1,11 @@
-import { Camera, Map, type PressEvent } from '@maplibre/maplibre-react-native';
-import type { FC } from 'react';
+import {
+    Camera,
+    Map,
+    type CameraRef,
+    type MapRef,
+    type PressEvent,
+} from '@maplibre/maplibre-react-native';
+import { forwardRef, useImperativeHandle, useRef } from 'react';
 import type { NativeSyntheticEvent } from 'react-native';
 
 import {
@@ -11,10 +17,26 @@ import {
 } from '../../constants';
 import { createLocation } from '../../utils/createLocation';
 import { styles } from './styles';
-import type { OsmMapProps } from './types';
+import type { OsmMapHandle, OsmMapProps } from './types';
 
 // Android: boş tuval + sadece OpenStreetMap karoları. Google yok, API key gerekmez.
-const OsmMap: FC<OsmMapProps> = ({ onLongPress }) => {
+const OsmMap = forwardRef<OsmMapHandle, OsmMapProps>(({ onLongPress }, ref) => {
+    const mapRef = useRef<MapRef>(null);
+    const cameraRef = useRef<CameraRef>(null);
+
+    const zoomBy = async (delta: number) => {
+        const zoom = await mapRef.current?.getZoom();
+        if (zoom === undefined) {
+            return;
+        }
+        cameraRef.current?.zoomTo(zoom + delta);
+    };
+
+    useImperativeHandle(ref, () => ({
+        zoomIn: () => zoomBy(1),
+        zoomOut: () => zoomBy(-1),
+    }));
+
     const handleLongPress = async (event: NativeSyntheticEvent<PressEvent>) => {
         const [longitude, latitude] = event.nativeEvent.lngLat;
         onLongPress(await createLocation(latitude, longitude));
@@ -22,6 +44,7 @@ const OsmMap: FC<OsmMapProps> = ({ onLongPress }) => {
 
     return (
         <Map
+            ref={mapRef}
             style={styles.map}
             onLongPress={handleLongPress}
             mapStyle={{
@@ -35,9 +58,13 @@ const OsmMap: FC<OsmMapProps> = ({ onLongPress }) => {
                 },
                 layers: [{ id: 'osm', type: 'raster', source: 'osm' }],
             }}>
-            <Camera center={[INITIAL_LONGITUDE, INITIAL_LATITUDE]} zoom={INITIAL_ZOOM} />
+            <Camera
+                ref={cameraRef}
+                center={[INITIAL_LONGITUDE, INITIAL_LATITUDE]}
+                zoom={INITIAL_ZOOM}
+            />
         </Map>
     );
-};
+});
 
 export default OsmMap;

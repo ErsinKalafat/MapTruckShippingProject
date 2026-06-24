@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import { forwardRef, useImperativeHandle, useRef } from 'react';
 import MapView, { UrlTile, type LongPressEvent } from 'react-native-maps';
 
 import {
@@ -10,10 +10,27 @@ import {
 } from '../../constants';
 import { createLocation } from '../../utils/createLocation';
 import { styles } from './styles';
-import type { OsmMapProps } from './types';
+import type { OsmMapHandle, OsmMapProps } from './types';
 
 // iOS: mapType="none" -> Apple karoları çizilmez, sadece OpenStreetMap döşenir.
-const OsmMap: FC<OsmMapProps> = ({ onLongPress }) => {
+const OsmMap = forwardRef<OsmMapHandle, OsmMapProps>(({ onLongPress }, ref) => {
+    const mapRef = useRef<MapView>(null);
+
+    // Apple Maps "zoom" yerine "altitude" (kamera yüksekliği) kullanır.
+    // Yüksekliği yarıya indirmek yakınlaştırır, iki katına çıkarmak uzaklaştırır.
+    const zoomBy = async (factor: number) => {
+        const camera = await mapRef.current?.getCamera();
+        if (!camera?.altitude) {
+            return;
+        }
+        mapRef.current?.animateCamera({ altitude: camera.altitude * factor });
+    };
+
+    useImperativeHandle(ref, () => ({
+        zoomIn: () => zoomBy(0.5),
+        zoomOut: () => zoomBy(2),
+    }));
+
     const handleLongPress = async (event: LongPressEvent) => {
         const { latitude, longitude } = event.nativeEvent.coordinate;
         onLongPress(await createLocation(latitude, longitude));
@@ -21,6 +38,7 @@ const OsmMap: FC<OsmMapProps> = ({ onLongPress }) => {
 
     return (
         <MapView
+            ref={mapRef}
             style={styles.map}
             mapType="none"
             onLongPress={handleLongPress}
@@ -33,6 +51,6 @@ const OsmMap: FC<OsmMapProps> = ({ onLongPress }) => {
             <UrlTile urlTemplate={OSM_TILE_URL} />
         </MapView>
     );
-};
+});
 
 export default OsmMap;
